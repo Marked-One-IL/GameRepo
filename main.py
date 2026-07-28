@@ -1,14 +1,20 @@
-import pygame, sys
+import window
+from player import *
 
 def main():
-    pygame.init()
-    screen = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption("Hello World")
-    while True:
-       for event in pygame.event.get():
-          if event.type == pygame.QUIT:
-             pygame.quit()
-             sys.exit()
-            
+    window.create(1000, 1000, "Game test", 60)
+    p = Player(0, 0, "assets/my_pic.png")
+
+    while window.is_open():
+        window.update_keys()
+        window.fill(255, 255, 255)
+
+        # TODO: Move the picture via WASD. Good luck!
+
+        p.show()
+        window.update_frame()
+
+    window.destroy()
+
 if __name__ == "__main__":
     main()
