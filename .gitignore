@@ -2,6 +2,7 @@
 
 # Keep those files.
 !/.gitignore
+!/.gitattributes
 !/CMakeLists.txt
 !/README.md
 
@@ -9,8 +10,10 @@
 !/include/
 !/src/
 !/external/
+!/assets/
 
 # Keep the content of those directories.
 !/include/**
 !/src/**
 !/external/**
+!/assets/**
