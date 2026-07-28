@@ -9,7 +9,11 @@ def create(width, height, title, fps_cap):
     global _canvas, _fps_cap
 
     pygame.init()
-    _canvas = pygame.display.set_mode((width, height))
+    if width == 0 and height == 0:
+        _canvas = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    else:
+        _canvas = pygame.display.set_mode((width, height))
+    
     pygame.display.set_caption(title)
     _fps_cap = fps_cap
 
