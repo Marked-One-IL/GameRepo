@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION ${CMAKE_VERSION}) # Stupid, I know. But it removes an annoying warning.
-project(ENTER_PROJECT_NAME LANGUAGES C CXX)
+project(GameRepo LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)

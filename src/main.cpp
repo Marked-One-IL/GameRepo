@@ -23,6 +23,9 @@ int main()
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
+        if (IsKeyDown(KEY_ESCAPE)) {
+            break;
+        }
         if (IsKeyDown(KEY_W)) {
             y -= MOVEMENT;
         }
@@ -42,6 +45,7 @@ int main()
         EndDrawing();
     }
 
+    UnloadTexture(texture);
     CloseWindow();
     return 0;
 }
