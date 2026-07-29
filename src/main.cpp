@@ -1,6 +1,6 @@
 #include <raylib.h>
-#include <Common/Png.hpp>
-#include <Common/Gif.hpp>
+#include <Common/Image.hpp>
+#include <Common/Animation.hpp>
 #include <filesystem>
 
 int main()
@@ -9,21 +9,26 @@ int main()
         std::filesystem::current_path(PROJECT_ROOT);
     #endif
 
-    InitWindow(500, 500, "Raylib test");
+    int windowX = 1920;
+    int windowY = 1080;
+    InitWindow(windowX, windowY, "Raylib test");
     SetTargetFPS(60);
+    ToggleFullscreen();
 
-    Common::Gif standing ("assets/standing.gif", 0.05f);
-    Common::Gif walking ("assets/walking.gif", 0.05f);
-    Common::Gif jumping ("assets/jumping.gif", 0.05f);
+    Common::Animation standing ("assets/animations/standing.gif", 0.05f);
+    Common::Animation walking ("assets/animations/walking.gif", 0.05f);
+    Common::Animation jumping ("assets/animations/jumping.gif", 0.05f);
+    Common::Image background ("assets/images/background.png");
 
     int x = 0;
-    int y = 20;
-    const int MOVEMENT = 10;
+    int y = 600;
+    const int MOVEMENT = 20;
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
+        background.display(0, 0);
 
         if (IsKeyDown(KEY_ESCAPE)) {
             break;
@@ -42,7 +47,7 @@ int main()
         if (IsKeyDown(KEY_W)) {
             jumped = true;
         }
-
+    
         if (!walked && !jumped) {
             standing.display(x, y);
             standing.advance();

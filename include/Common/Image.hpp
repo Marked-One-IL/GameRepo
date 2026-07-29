@@ -3,11 +3,11 @@
 
 namespace Common
 {
-    class Png
+    class Image
     {
     public:
-        Png(const char *filename);
-        ~Png(void);
+        Image(const char *filename);
+        ~Image(void);
 
         void display(int x, int y);
 

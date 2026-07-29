@@ -3,11 +3,11 @@
 
 namespace Common
 {
-    class Gif
+    class Animation
     {
     public:
-        Gif(const char *filename, float delay);
-        ~Gif(void);
+        Animation(const char *filename, float delay);
+        ~Animation(void);
 
         void advance(void);
         void reset(void);
