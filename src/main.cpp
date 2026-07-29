@@ -1,4 +1,6 @@
 #include <raylib.h>
+#include <Common/Png.hpp>
+#include <Common/Gif.hpp>
 #include <filesystem>
 
 int main()
@@ -7,15 +9,15 @@ int main()
         std::filesystem::current_path(PROJECT_ROOT);
     #endif
 
-    InitWindow(1000, 1000, "Raylib test");
+    InitWindow(500, 500, "Raylib test");
     SetTargetFPS(60);
 
-    Image image = LoadImage("assets/pic.png");
-    Texture2D texture = LoadTextureFromImage(image);
-    UnloadImage(image);
+    Common::Gif standing ("assets/standing.gif", 0.05f);
+    Common::Gif walking ("assets/walking.gif", 0.05f);
+    Common::Gif jumping ("assets/jumping.gif", 0.05f);
 
     int x = 0;
-    int y = 0;
+    int y = 20;
     const int MOVEMENT = 10;
 
     while (!WindowShouldClose())
@@ -26,26 +28,43 @@ int main()
         if (IsKeyDown(KEY_ESCAPE)) {
             break;
         }
-        if (IsKeyDown(KEY_W)) {
-            y -= MOVEMENT;
-        }
-        if (IsKeyDown(KEY_S)) {
-            y += MOVEMENT;
-        }
+
+        bool walked = false;
+        bool jumped = false;
         if (IsKeyDown(KEY_A)) {
             x -= MOVEMENT;
+            walked = true;
         }
         if (IsKeyDown(KEY_D)) {
             x += MOVEMENT;
+            walked = true;
+        }
+        if (IsKeyDown(KEY_W)) {
+            jumped = true;
         }
 
-        DrawText("I love femboys", 220, 180, 30, DARKBLUE);
-        DrawTexture(texture, x, y, WHITE);
+        if (!walked && !jumped) {
+            standing.display(x, y);
+            standing.advance();
+            walking.reset();
+            jumping.reset();
+        }
+        else if (jumped) {
+            jumping.display(x, y);
+            jumping.advance();
+            standing.reset();
+            walking.reset();
+        }
+        else {
+            walking.display(x, y);
+            walking.advance();
+            standing.reset();
+            jumping.reset();
+        }
 
         EndDrawing();
     }
 
-    UnloadTexture(texture);
     CloseWindow();
     return 0;
 }
