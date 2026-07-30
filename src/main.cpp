@@ -18,11 +18,11 @@ int main()
     Common::Animation standing ("assets/animations/standing.gif", 0.05f);
     Common::Animation walking ("assets/animations/walking.gif", 0.05f);
     Common::Animation jumping ("assets/animations/jumping.gif", 0.05f);
+    Common::Animation crouch ("assets/animations/crouch.gif", 0.05f);
     Common::Image background ("assets/images/background.png");
 
     int x = 0;
-    int y = 600;
-    const int MOVEMENT = 20;
+    int y = 800;
 
     while (!WindowShouldClose())
     {
@@ -36,35 +36,58 @@ int main()
 
         bool walked = false;
         bool jumped = false;
+        bool crouched = false;
+        int movement = 20;
+        if (IsKeyDown(KEY_S)) {
+            crouched = true;
+            movement = 10;
+        }
         if (IsKeyDown(KEY_A)) {
-            x -= MOVEMENT;
+            x -= movement;
             walked = true;
         }
         if (IsKeyDown(KEY_D)) {
-            x += MOVEMENT;
+            x += movement;
             walked = true;
         }
         if (IsKeyDown(KEY_W)) {
             jumped = true;
         }
     
-        if (!walked && !jumped) {
+        if (!walked && !jumped && !crouched) {
             standing.display(x, y);
             standing.advance();
             walking.reset();
             jumping.reset();
+            crouch.reset();
         }
         else if (jumped) {
             jumping.display(x, y);
             jumping.advance();
             standing.reset();
             walking.reset();
+            crouch.reset();
         }
-        else {
+        else if (crouched && !walked) {
+            crouch.reset();
+            crouch.display(x, y);
+            standing.reset();
+            jumping.reset();
+            walking.reset();
+        }
+        else if (crouched) {
+            crouch.display(x, y);
+            crouch.advance();
+            standing.reset();
+            jumping.reset();
+            walking.reset();
+        }
+        else  {
             walking.display(x, y);
             walking.advance();
             standing.reset();
             jumping.reset();
+            crouch.reset();
         }
 
         EndDrawing();
