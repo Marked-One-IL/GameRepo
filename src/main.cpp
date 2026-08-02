@@ -17,7 +17,7 @@ int main()
 
     Common::Animation standing ("assets/animations/standing.gif", 0.05f);
     Common::Animation walking ("assets/animations/walking.gif", 0.05f);
-    Common::Animation jumping ("assets/animations/jumping.gif", 0.05f);
+    Common::Animation jumping ("assets/animations/jumping.gif", 0.2f);
     Common::Animation crouch ("assets/animations/crouch.gif", 0.05f);
     Common::Image background ("assets/images/background.png");
 
